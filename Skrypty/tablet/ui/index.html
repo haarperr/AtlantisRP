@@ -1,0 +1,776 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Teko:600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200" rel="stylesheet">
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+ 
+    <script src="./script.js" type="text/javascript"></script>
+   
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+
+$(document).keypress(function(e) {
+    if(e.which == 13) {
+       $.post('http://tablet/exit'); 
+    }
+    if(e.which == 2) {
+       $.post('http://tablet/exit'); 
+    }
+});
+function update() {
+    var one = document.getElementById('johndoe');
+    var two = document.querySelector('[aria-controls="table_id"]');
+    two.value = one.value;
+} 
+function hide(){
+    
+    $.post('http://tablet/exit');
+    $('#plates').fadeOut( "fast" );
+    $('#user').fadeOut( "fast" );
+    $('#jail').fadeOut( "fast" );
+    $('#fines').fadeOut( "fast" );
+    $('#notes').fadeOut( "fast" );
+    $('#browse').fadeOut( "fast" );
+    $('#front').fadeIn( "fast" );
+    
+  
+}
+function checkPlate(){
+    
+    $.post('http://tablet/checkPlate', JSON.stringify({
+            plate: $("#plate").val(),
+        }));
+    
+  
+}
+function getDatabase(){
+    
+    $.post('http://tablet/openDatabase'); 
+    $('#table_id').DataTable();
+}
+function sendtToJail(){
+   $.post('http://tablet/sendtToJail', JSON.stringify({
+            id: $("#playerId").val(),
+            fineAmount: $("#fineAmount").val(),
+            jailTime: $("#jailTime").val(),
+            descr: $("#descr").val(),
+
+        }));
+   $.post('http://tablet/exit')
+    
+  
+}
+
+function calc(){
+    var totalJail = 0
+    var fineA = 0
+    var descrip = ""
+    for (i = 1; i < 84; i++) { 
+        if (document.getElementById(i).checked) 
+        {
+            /*jail-time="11" fine-amount="1" descr-crime*/
+          totalJail = totalJail + parseInt(document.getElementById(i).getAttribute("jail-time"))
+          fineA = fineA + parseInt(document.getElementById(i).getAttribute("fine-amount"))
+          descrip = descrip  + document.getElementById(i).getAttribute("descr-crime") + " | "
+        }
+    }
+    document.getElementById('jailTime').value = totalJail;
+    document.getElementById('fineAmount').value = fineA;
+    document.getElementById('descr').value = descrip;
+}
+</script>
+</head>
+<body>
+    
+</body>
+<style>
+        .control-group {
+                display:inline-grid;
+        }
+        .control {
+            font-family: arial;
+            display: block;
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 5px;
+            padding-top: 3px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+            .control input {
+                position: absolute;
+                z-index: -1;
+                opacity: 0;
+            }
+        .control_indicator {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background: #e6e6e6;
+            border: 0px solid #000000;
+        }
+        .control-radio .control_indicator {
+            border-radius: undefined%;
+        }
+        
+        .control:hover input ~ .control_indicator,
+        .control input:focus ~ .control_indicator {
+            background: #cccccc;
+        }
+        
+        .control input:checked ~ .control_indicator {
+            background: #dc981c;
+        }
+        .control:hover input:not([disabled]):checked ~ .control_indicator,
+        .control input:checked:focus ~ .control_indicator {
+            background: #0e6647d;
+        }
+        .control input:disabled ~ .control_indicator {
+            background: #e6e6e6;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .control_indicator:after {
+            box-sizing: unset;
+            content: '';
+            position: absolute;
+            display: none;
+        }
+        .control input:checked ~ .control_indicator:after {
+            display: block;
+        }
+        .control-checkbox .control_indicator:after {
+            left: 8px;
+            top: 4px;
+            width: 3px;
+            height: 8px;
+            border: solid #ffffff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .control-checkbox input:disabled ~ .control_indicator:after {
+            border-color: #7b7b7b;
+        }
+    </style>
+<style>
+::-webkit-scrollbar-button{ display: block; height: 13px; border-radius: 0px; background-color: #AAA; } ::-webkit-scrollbar-button:hover{ background-color: #AAA; } ::-webkit-scrollbar-thumb{ background-color: #dc981c; } ::-webkit-scrollbar-thumb:hover{ background-color: #CCC; } ::-webkit-scrollbar-track{ background-color: #efefef; } ::-webkit-scrollbar-track:hover{ background-color: #CCC; } ::-webkit-scrollbar{ width: 5px;; }
+#tablet {
+    display: none;
+}
+
+a:link {
+  text-decoration: none;
+  color: #162951; 
+}
+
+a:visited {
+  text-decoration: none;
+  color: #162951; 
+}
+
+a:hover {
+  text-decoration: none;
+  color: #162951; 
+}
+
+a:active {
+  text-decoration: none;
+  color: #162951; 
+}
+.tablet {
+
+    margin-top: 5%;
+    position: relative;
+  margin:auto;
+width: 1024px;
+  height: 576px;
+  background-image: url(img/tablet.png);
+    background-size: 100% 100%;
+    margin-top: 5%;
+}
+.container {
+    position: absolute;
+    width: 1000px;
+    height: 552px;
+    /* padding: 20px; */
+    background: #162951;
+    margin: auto;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.header  {
+    padding:20px;
+    border-bottom: 10px solid orange;
+
+}
+.frame  {
+    padding:20px;
+    border-bottom: 10px solid orange;
+
+}
+
+.leftbar {
+    vertical-align: top; /* here */
+    display: inline-block;
+    width: 18%;
+}
+.rightbar {
+    vertical-align: top; /* here */
+    display: inline-block;
+    width: 80%;
+}
+.menuButton {
+    /* width: 100px; */
+    line-height: 20px;
+    font-size: 14px;
+    font-family: monospace;
+    color: #162951;
+    background: orange;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.searchBox {
+    display: inline-block;
+    width: 200px;
+    line-height: 60px;
+    font-size: 14px;
+    font-family: monospace;
+    color: #162951;
+    background: orange;
+    /* padding: 10px; */
+    text-align: center;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.searchInput {
+        background: #dc981c;
+    border: 0px;
+    max-width: 170px;
+    height: 50px;
+    padding: 2px;
+    font-size: 20px;
+    color: #162951;
+    font-family: monospace;
+    text-transform:uppercase;
+
+}
+
+.exitButton{
+        background: #dc981c;
+    border: 0px;
+    line-height: 56px;
+    padding: 2px;
+    font-size: 14px;
+    color: #162951;
+    font-family: monospace;
+    width: 90%;
+}
+.rightContent{
+    padding-left: 20px;
+    font-size: 14px;
+    position: absolute;
+    color: #ffa500;
+    font-family: monospace;
+    width: 78%;
+}
+#plates {
+    display: none;
+}
+#user{
+    display: none;
+}
+#jail {
+    display: none;
+}
+#fines {
+    display: none;
+}
+#notes {
+    display: none;
+}
+#browse {
+    display: none;
+}
+#front {
+    display: none;
+}
+</style>
+
+<div class="tablet" id="tablet">
+    <div class="container">
+        <div class="header"><img src="img/logo.png">
+            <div class="searchBox"> <input id="plate" class="searchInput" type="text" name="" placeholder="WA87CV21"> <a href="#" onclick="checkPlate()">GO</a> </div> &nbsp;&nbsp;&nbsp;
+            <div class="searchBox"> <input id="johndoe" class="searchInput" type="text" name="" placeholder="John Doe" onchange="update()"><a href="#" onclick="checkName()">GO</a></div> &nbsp;&nbsp;&nbsp;
+            <div class="searchBox"> <button class="exitButton"  onclick="hide()">Zamknij</button></div> 
+        </div>
+        <div class="frame">
+            <div class="leftbar">
+                <div class="menuButton"><a href="#" onclick="toggleMenu('jail')">Wypisanie kary</a></div><br>
+                <div class="menuButton"><a href="#" onclick="toggleMenu('user')">Dodaj poszukiwanego</a></div><br>
+                <div class="menuButton"><a href="#" onclick="toggleMenu('fines')">Taryfikator</a></div><br>
+                <div class="menuButton"><a href="#" onclick="toggleMenu('notes')">Notatki wewnętrzne</a></div><br>
+                <div class="menuButton"><a href="#" onclick="toggleMenu('browse'); getDatabase()">Przeglądaj kartotekę</a></div><br>
+            </div>
+            <div class="rightbar">
+                 <div class="rightContent" id="front">
+                     LSPD MDT CAD System
+                 </div>
+                 <div class="rightContent" id="plates">
+                     Czytanie rejestracji
+                 </div>
+                 <div class="rightContent" id="user">
+                     Dodawanie poszukiwanego
+                 </div>
+                 <div class="rightContent" id="jail" style="overflow: auto; height:300px;">
+                     <center>
+                     <input id="playerId" class="searchInput" type="text" name="" placeholder="id">
+                     <input id="jailTime" class="searchInput" type="text" name="" placeholder="czas odsiadki">
+                     <input id="fineAmount" class="searchInput" type="text" name="" placeholder="grzywna"><br>
+                     <textarea id="descr" class="searchInput" type="text" name="" placeholder="opis" style="margin: 20px;max-width: 500px !important;width: 500px !important;height: 100px;padding: 5px;font-size: 15px;"></textarea><br>
+                    <a href="#" onclick="sendtToJail()" style="color: #162951; text-decoration: none; background: #ffa500; padding: 10px;">GO</a><BR><BR>
+                    
+                    <div class="control-group">
+                        <label class="control control-checkbox">
+                            Podszywanie się pod FP
+                            <input type="checkbox" id="1" jail-time="8" fine-amount="1125" descr-crime="Podzywanie pod FP" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Podszywanie się pod FP w umundurowaniu
+                            <input type="checkbox" id="2" jail-time="12" fine-amount="2250" descr-crime="Podszywanie się pod FP w umundurowaniu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Podszywanie się pod FP w pojeździe FP
+                            <input type="checkbox" id="3" jail-time="18" fine-amount="2815" descr-crime="Podszywanie się pod FP w pojeździe FP" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Podszywanie się pod FP (mundur + auto)
+                            <input type="checkbox" id="4" jail-time="28" fine-amount="3375" descr-crime="Podszywanie się pod FP (mundur + auto)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Podszywanie się pod Urząd Miasta (Sędzia)
+                            <input type="checkbox" id="5" jail-time="25" fine-amount="3375" descr-crime="Podszywanie się pod Urząd Miasta (Sędzia)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Podszywanie się pod Urząd Miasta (Adwokat)
+                            <input type="checkbox" id="6" jail-time="5" fine-amount="1125" descr-crime="Podszywanie się pod Urząd Miasta (Adwokat)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Podszywanie się pod EMS
+                            <input type="checkbox" id="7" jail-time="6" fine-amount="1125" descr-crime="Podszywanie się pod EMS" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Podszywanie się pod EMS w pojeździe EMS
+                            <input type="checkbox" id="8" jail-time="12" fine-amount="2025" descr-crime="Podszywanie się pod EMS w pojeździe EMS" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Podszywanie się pod obywatela LS
+                            <input type="checkbox" id="9" jail-time="4" fine-amount="565" descr-crime="Podszywanie się pod obywatela LS" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Fałszywe zgłoszenie
+                            <input type="checkbox" id="10" jail-time="0" fine-amount="340" descr-crime="Fałszywe zgłoszenie" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Fałszywe zeznania
+                            <input type="checkbox" id="11" jail-time="9" fine-amount="565" descr-crime="Fałszywe zeznania" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Kradzież mienia
+                            <input type="checkbox" id="12" jail-time="5" fine-amount="0" descr-crime="Kradzież mienia" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Kradzież pojazdu służb publicznych
+                            <input type="checkbox" id="13" jail-time="15" fine-amount="2815" descr-crime="Kradzież pojazdu służb publicznych" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Niszczenie mienia
+                            <input type="checkbox" id="14" jail-time="2" fine-amount="340" descr-crime="Niszczenie mienia" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Obraza funkcjonariusza
+                            <input type="checkbox" id="15" jail-time="3" fine-amount="165" descr-crime="Obraza funkcjonariusza" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Niewykonywanie poleceń funkcjonariusza
+                            <input type="checkbox" id="16" jail-time="4" fine-amount="225" descr-crime="Nie wykonywanie poleceń funkcjonariusza" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Zakłócanie porządku publicznego
+                            <input type="checkbox" id="17" jail-time="0" fine-amount="115" descr-crime="Zakłócanie porządku publicznego" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Obnażanie się
+                            <input type="checkbox" id="18" jail-time="1" fine-amount="340" descr-crime="Obnażanie się" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Utrudnianie pracy służbom publicznym
+                            <input type="checkbox" id="19" jail-time="7" fine-amount="340" descr-crime="Utrudnianie pracy służbom publicznym" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Nękanie
+                            <input type="checkbox" id="20" jail-time="8" fine-amount="900" descr-crime="Nękanie" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. marihuany – mała ilość (od 11g do 29g)
+                            <input type="checkbox" id="21" jail-time="5" fine-amount="1170" descr-crime="Posiad. marihuany – mała ilość (od 11g do 29g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. marihuany – średnia ilość (od 30g do 60g)
+                            <input type="checkbox" id="22" jail-time="10" fine-amount="1750" descr-crime="Posiad. marihuany – średnia ilość (od 30g do 60g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. marihuany – duża ilość (powyżej 61g)
+                            <input type="checkbox" id="23" jail-time="15" fine-amount="2340" descr-crime="Posiad. marihuany – duża ilość (powyżej 61g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. marihuany – hurtownia (powyżej 200g)
+                            <input type="checkbox" id="24" jail-time="30" fine-amount="3510" descr-crime="Posiad. marihuany – hurtownia (powyżej 200g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. metaamf. – mała ilość (do 20g)
+                            <input type="checkbox" id="25" jail-time="12" fine-amount="2820" descr-crime="Posiad. metaamf. – mała ilość (do 20g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. metaamf. – średnia ilość (od 21g do 50g)
+                            <input type="checkbox" id="26" jail-time="20" fine-amount="4230" descr-crime="Posiad. metaamf. – średnia ilość (od 21g do 50g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. metaamf. - duża ilość (powyżej 51g)
+                            <input type="checkbox" id="27" jail-time="30" fine-amount="5640" descr-crime="Posiad. metaamf. - duża ilość (powyżej 51g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. metaamf. – hurtownia (powyżej 200g)
+                            <input type="checkbox" id="28" jail-time="60" fine-amount="9870" descr-crime="Posiad. metaamf. – hurtownia (powyżej 200g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. kokainy – mała ilość (do 20g)
+                            <input type="checkbox" id="29" jail-time="12" fine-amount="3100" descr-crime="Posiad. kokainy – mała ilość (do 20g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. kokainy – średnia ilość (od 21g do 50g)
+                            <input type="checkbox" id="30" jail-time="22" fine-amount="3500" descr-crime="Posiad. kokainy – średnia ilość (od 21g do 50g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. kokainy – duża ilość (powyżej 51g)
+                            <input type="checkbox" id="31" jail-time="33" fine-amount="4750" descr-crime="Posiad. kokainy – duża ilość (powyżej 51g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. kokainy – hurtownia (powyżej 200g)
+                            <input type="checkbox" id="32" jail-time="60" fine-amount="8650" descr-crime="Posiad. kokainy – hurtownia (powyżej 200g)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Handel miękkimi narkotykami (marihuana)
+                            <input type="checkbox" id="33" jail-time="10" fine-amount="1125" descr-crime="Handel miękkimi narkotykami (marihuana)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Handel twardymi narkotykami (metaamfetamina, kokaina)
+                            <input type="checkbox" id="34" jail-time="20" fine-amount="2815" descr-crime="Handel twardymi narkotykami (metaamfetamina, kokaina)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Kontrabanda – mała ilość (do 500$)
+                            <input type="checkbox" id="35" jail-time="5" fine-amount="565" descr-crime="Kontrabanda – mała ilość (do 500$)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Kontrabanda – średnia ilość (od 1500$ do 3000$)
+                            <input type="checkbox" id="36" jail-time="10" fine-amount="790" descr-crime="Kontrabanda – średnia ilość (od 1500$ do 3000$)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Kontrabanda – duża ilość (powyżej 3000$)
+                            <input type="checkbox" id="37" jail-time="20" fine-amount="1125" descr-crime="Kontrabanda – duża ilość (powyżej 3000$)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Handel bronią klasy 1
+                            <input type="checkbox" id="38" jail-time="10" fine-amount="2250" descr-crime="Handel bronią klasy 1" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Handel bronią klasy 2
+                            <input type="checkbox" id="39" jail-time="40" fine-amount="11250" descr-crime="" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Kradzież rabunkowa
+                            <input type="checkbox" id="40" jail-time="7" fine-amount="2065" descr-crime="Kradzież rabunkowa" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Napad na sklep
+                            <input type="checkbox" id="41" jail-time="10" fine-amount="5065" descr-crime="Napad na sklep" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        </div>
+                        <div class="control-group">
+                        <label class="control control-checkbox">
+                            Napad na jubilera
+                            <input type="checkbox" id="42" jail-time="15" fine-amount="6000" descr-crime="Napad na jubilera" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Napad na bank
+                            <input type="checkbox" id="43" jail-time="25" fine-amount="7600" descr-crime="Napad na bank" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Napad na bank centralny
+                            <input type="checkbox" id="44" jail-time="30" fine-amount="10190" descr-crime="Napad na bank centralny" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Pomoc w ucieczce
+                            <input type="checkbox" id="45" jail-time="8" fine-amount="1125" descr-crime="Pomoc w ucieczce" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Napad na konwój z użyciem broni palnej
+                            <input type="checkbox" id="46" jail-time="20" fine-amount="3940" descr-crime="Napad na konwój z użyciem broni palnej" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Porwanie cywila bez uszczerbku na zdrowiu
+                            <input type="checkbox" id="47" jail-time="5" fine-amount="1690" descr-crime="Porwanie cywila bez uszczerbku na zdrowiu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Porwanie cywila z uszczerbkiem na zdrowiu
+                            <input type="checkbox" id="48" jail-time="10" fine-amount="2815" descr-crime="Porwanie cywila z uszczerbkiem na zdrowiu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Napaść na cywila bez uszczerbku na zdrowiu
+                            <input type="checkbox" id="49" jail-time="3" fine-amount="1125" descr-crime="Napaść na cywila bez uszczerbku na zdrowiu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Napaść na cywila z uszczerbkiem na zdrowiu
+                            <input type="checkbox" id="50" jail-time="7" fine-amount="1915" descr-crime="Napaść na cywila z uszczerbkiem na zdrowiu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Porwanie FP/Urząd Miasta  (sędzia) bez uszczerbku na zdrowiu
+                            <input type="checkbox" id="51" jail-time="10" fine-amount="2815" descr-crime="Porwanie FP/Urząd Miasta  (sędzia) bez uszczerbku na zdrowiu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Porwanie FP/Urząd Miasta  (sędzia) z uszczerbkiem na zdrowiu
+                            <input type="checkbox" id="52" jail-time="20" fine-amount="3940" descr-crime="Porwanie FP/Urząd Miasta  (sędzia) z uszczerbkiem na zdrowiu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Napaść na FP/Urząd Miasta  (sędzia) bez uszczerbku na zdrowiu
+                            <input type="checkbox" id="53" jail-time="5" fine-amount="1690" descr-crime="Napaść na FP/Urząd Miasta  (sędzia) bez uszczerbku na zdrowiu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Napaść na FP/Urząd Miasta (sędzia) z uszczerbkiem na zdrowiu
+                            <input type="checkbox" id="54" jail-time="10" fine-amount="2815" descr-crime="Napaść na FP/Urząd Miasta (sędzia) z uszczerbkiem na zdrowiu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Podstawiony Zakładnik
+                            <input type="checkbox" id="55" jail-time="5" fine-amount="840" descr-crime="Podstawiony Zakładnik" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Bezpodstawne użycie broni palnej
+                            <input type="checkbox" id="56" jail-time="7" fine-amount="1690" descr-crime="Bezpodstawne użycie broni palnej" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Bezpodstawne użycie broni białej
+                            <input type="checkbox" id="57" jail-time="3" fine-amount="840" descr-crime="Bezpodstawne użycie broni białej" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. broni klasy 1 bez zezwolenia
+                            <input type="checkbox" id="58" jail-time="8" fine-amount="2250" descr-crime="Posiad. broni klasy 1 bez zezwolenia" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Posiad. broni klasy 2
+                            <input type="checkbox" id="59" jail-time="25" fine-amount="5625" descr-crime="Posiad. broni klasy 2" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Grożenie bronią białą
+                            <input type="checkbox" id="60" jail-time="5" fine-amount="565" descr-crime="Grożenie bronią białą" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Grożenie bronią palną
+                            <input type="checkbox" id="61" jail-time="10" fine-amount="1690" descr-crime="Grożenie bronią palną" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Jazda pod wpływem alkoholu lub narkotyków
+                            <input type="checkbox" id="62" jail-time="2" fine-amount="1690" descr-crime="Jazda pod wpływem alkoholu lub narkotyków" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Jazda bez prawa jazdy
+                            <input type="checkbox" id="63" jail-time="0" fine-amount="565" descr-crime="Jazda bez prawa jazdy" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Przekroczenie prędkości w mieście 55-75 mph
+                            <input type="checkbox" id="64" jail-time="0" fine-amount="205" descr-crime="Przekroczenie prędkości w mieście 55-75 mph" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Przekroczenie prędkości w mieście 76-100 mph
+                            <input type="checkbox" id="65" jail-time="0" fine-amount="255" descr-crime="Przekroczenie prędkości w mieście 76-100 mph" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Przekroczenie prędkości w mieście 101-135 mph
+                            <input type="checkbox" id="66" jail-time="0" fine-amount="315" descr-crime="Przekroczenie prędkości w mieście 101-135 mph" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Przekroczenie prędkości w mieście ponad 136 mph
+                            <input type="checkbox" id="67" jail-time="0" fine-amount="430" descr-crime="Przekroczenie prędkości w mieście ponad 136 mph" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Przekroczenie prędkości poza miastem 95-115 mph
+                            <input type="checkbox" id="68" jail-time="0" fine-amount="255" descr-crime="Przekroczenie prędkości poza miastem 95-115 mph" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Przekroczenie prędkości poza miastem 116-135 mph
+                            <input type="checkbox" id="69" jail-time="0" fine-amount="240" descr-crime="Przekroczenie prędkości poza miastem 116-135 mph" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Przekroczenie prędkości poza miastem ponad 136 mph
+                            <input type="checkbox" id="70" jail-time="0" fine-amount="430" descr-crime="Przekroczenie prędkości poza miastem ponad 136 mph" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Agresywna jazda
+                            <input type="checkbox" id="71" jail-time="0" fine-amount="1440" descr-crime="Agresywna jazda" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Ucieczka przed policją
+                            <input type="checkbox" id="72" jail-time="0" fine-amount="2790" descr-crime="Ucieczka przed policją" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Jazda bez świateł
+                            <input type="checkbox" id="73" jail-time="0" fine-amount="165" descr-crime="Jazda bez świateł" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Parkowanie w nieodpowiednim miejscu
+                            <input type="checkbox" id="74" jail-time="0" fine-amount="165" descr-crime="Parkowanie w nieodpowiednim miejscu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Samochód nieprzystosowany do ruchu ulicznego
+                            <input type="checkbox" id="75" jail-time="0" fine-amount="565" descr-crime="Samochód nieprzystosowany do ruchu ulicznego" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Przejechanie na czerwonym świetle
+                            <input type="checkbox" id="76" jail-time="0" fine-amount="315" descr-crime="Przejechanie na czerwonym świetle" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Bezpodstawne usiłowanie zabójstwa (RDM)
+                            <input type="checkbox" id="77" jail-time="120" fine-amount="37500" descr-crime="Bezpodstawne usiłowanie zabójstwa (RDM)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Usiłowanie zabójstwa cywila
+                            <input type="checkbox" id="78" jail-time="30" fine-amount="3940" descr-crime="Usiłowanie zabójstwa cywila" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Usiłowanie zabójstwa EMS
+                            <input type="checkbox" id="79" jail-time="35" fine-amount="5065" descr-crime="Usiłowanie zabójstwa EMS" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Usiłowanie zabójstwa FP
+                            <input type="checkbox" id="80" jail-time="40" fine-amount="5625" descr-crime="Usiłowanie zabójstwa FP" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Usiłowanie zabójstwa Urząd Miasta (sędzia)
+                            <input type="checkbox" id="81" jail-time="50" fine-amount="6750" descr-crime="Usiłowanie zabójstwa Urząd Miasta (sędzia)" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Nieumyślne spowodowanie uszczerbku na zdrowiu
+                            <input type="checkbox" id="82" jail-time="4" fine-amount="840" descr-crime="Nieumyślne spowodowanie uszczerbku na zdrowiu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                        <label class="control control-checkbox">
+                            Nieumyślne spowodowanie poważnego uszczerbku na zdrowiu
+                            <input type="checkbox" id="83" jail-time="6" fine-amount="1690" descr-crime="Nieumyślne spowodowanie poważnego uszczerbku na zdrowiu" onclick="calc()"/>
+                            <div class="control_indicator"></div>
+                        </label>
+                    </div>
+
+
+                    </center>
+                 </div>
+                 <div class="rightContent" id="fines">
+                     Taryfikator
+                 </div>
+                 <div class="rightContent" id="notes">
+                     Notes
+                 </div>
+                 <div class="rightContent" id="browse">
+                     
+
+                 </div>
+            </div>
+        </div>
+    </div>
+
+</div>

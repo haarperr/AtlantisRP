@@ -1,0 +1,25 @@
+Locales['pl'] = {
+
+    ['robbery_cancelled'] = 'Napad został anulowany, nie dostaniesz pieniędzy',
+    ['robbery_successful'] = 'Napad sie udał, otrzymałeś ~g~$',
+    ['bank_robbery'] = 'Napad na Humane Labs',
+    ['press_to_rob'] = 'Wciśnij ~INPUT_CONTEXT~ żeby zacząć robotę ~b~',
+    ['robbery_of'] = 'Napad na Humane Labs: ~r~',
+    ['seconds_remaining'] = '~w~ sekund do zakończenia',
+    ['robbery_cancelled_at'] = '~r~ Napad anulowany w: ~b~',
+    ['robbery_has_cancelled'] = '~r~ Napad został anulowany: ~b~',
+    ['already_robbed'] = 'Humane Labs zostało już okradzione. Zaczekaj: ',
+    ['seconds'] = 'sekund.',
+    ['rob_in_prog'] = '~r~ Napad w trakcie w: ~b~',
+    ['started_to_rob'] = 'Zacząłeś napad ~b~',
+    ['do_not_move'] = '~s~, nie oddalaj się!',
+    ['alarm_triggered'] = 'Alarm został włączony',
+    ['hold_pos'] = 'Utrzymaj pozycje przez ',
+	['min_to_take_money'] = 'minut żeby zdobyć kase',
+    ['robbery_complete'] = '~r~ Napad zakończony.~s~ ~h~ Uciekaj!',
+    ['robbery_complete_at'] = '~r~ Napad zakończony w: ~b~',
+    ['min_police'] = 'Musi być przynajmniej ~b~',
+    ['in_city'] = '~s~ policjantów na wyspie żeby napadać.',
+    ['robbery_already'] = '~r~Napad właśnie trwa.',
+
+}

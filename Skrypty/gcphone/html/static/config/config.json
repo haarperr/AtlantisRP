@@ -1,0 +1,278 @@
+{
+  "reseau": "LS&T",
+  "warningMessageCount": 500,
+  "themeColor": "#303f9f",
+  "colors": [
+    "#EF5350",
+    "#EC407A",
+    "#AB47BC",
+    "#7E57C2",
+    "#5C6BC0",
+    "#42A5F5",
+    "#29B6F6",
+    "#26C6DA",
+    "#26A69A",
+    "#66BB6A",
+    "#9CCC65",
+    "#D4E157",
+    "#FFCA28",
+    "#FFA726",
+    "#FF7043",
+    "#8D6E63",
+    "#78909C"
+  ],
+
+  "useFormatNumberFrance": false,
+
+  "useWebRTCVocal": true,
+  "RTCConfig": {
+    "iceServers": [{
+      "urls": ["turn:srv.atlantisrp.pl"],
+      "username": "atlantis",
+      "credential": "asdajvYIHGAS5"
+    }]
+  },
+
+
+  "background" : {
+    "Close-up": "back001.jpg",
+    "Traffic": "back002.jpg",
+    "Colorful": "back003.jpg",
+    "Fog": "back004.jpg",
+    "Skin": "back005.jpg",
+    "Cyan": "back006.jpg",
+    "Własna tapeta": "URL"
+  },
+  "background_default": {
+    "label": "Close-up",
+    "value": "back001.jpg"
+  },
+
+
+  "coque": {
+    "Samsung S8": "s8.png",
+    "iPhone X": "iphonex.png"
+  },
+  "coque_default": {
+    "label": "Samsung S8",
+    "value": "s8.png"
+  },
+
+
+  "serviceCall": [
+    {
+      "display": "LSPD",
+      "icon": "/html/static/img/icons_app/lspd.png",
+      "subMenu": [
+        {
+          "title": "Wyślij zgłoszenie",
+          "eventName": "esx_addons_gcphone:call",
+          "type": {
+            "number": "police"
+          }
+        }
+      ]
+    }, 
+    {
+      "display": "EMS",
+      "icon": "/html/static/img/icons_app/ems.png",
+      "subMenu": [
+        {
+          "title": "Wyślij zgłoszenie",
+          "eventName": "esx_addons_gcphone:call",
+          "type": {
+            "number": "ambulance"
+          }
+        }
+      ]
+    },
+    {
+      "display": "Urząd",
+      "icon": "/html/static/img/icons_app/fib.png",
+      "subMenu": [
+        {
+          "title": "Wyślij zgłoszenie",
+          "eventName": "esx_addons_gcphone:call",
+          "type": {
+            "number": "city"
+          }
+        }
+      ]
+    },
+    {
+      "display": "Mechanik",
+      "icon": "/html/static/img/icons_app/mechanik.png",
+      "subMenu": [
+        {
+          "title": "Wyślij zgłoszenie",
+          "eventName": "esx_addons_gcphone:call",
+          "type": {
+            "number": "mechanic"
+          }
+        }
+      ]
+    },
+    {
+      "display": "Taxi",
+      "icon": "/html/static/img/icons_app/taxi.png",
+      "subMenu": [
+        {
+          "title": "Wyślij zgłoszenie",
+          "eventName": "esx_addons_gcphone:call",
+          "type": {
+            "number": "taxi"
+          }
+        }
+      ]
+    },
+    {
+      "display": "Los Santos News",
+      "icon": "/html/static/img/icons_app/bourse.png",
+      "subMenu": [
+        {
+          "title": "Wyślij zgłoszenie",
+          "eventName": "esx_addons_gcphone:call",
+          "type": {
+            "number": "reporter"
+          }
+        }
+      ]
+    }
+  ],
+
+  "defaultContacts": [],
+
+  "apps": [
+    {
+      "name": "Téléphone",
+      "fr_FR__name": "Telefon",
+      "en_US__name": "Phone",
+      "icons": "/html/static/img/icons_app/call.png",
+      "routeName": "appels",
+      "inHomePage": true
+    },
+    {
+      "name": "SMS",
+      "icons": "/html/static/img/icons_app/sms.png",
+      "routeName": "messages",
+      "inHomePage": true,
+      "puceRef": "nbMessagesUnread"
+    },
+    {
+      "name": "Kontakty",
+      "icons": "/html/static/img/icons_app/contacts.png",
+      "routeName": "contacts",
+      "inHomePage": true
+    },
+    {
+      "name": "Paramètres",
+      "fr_FR__name": "Ustawienia",
+      "en_US__name": "System",
+      "icons": "/html/static/img/icons_app/settings.png",
+      "routeName": "parametre",
+      "inHomePage": true
+    },
+    {
+      "name": "Bank",
+      "fr_FR__name": "Bank",
+      "en_US__name": "Bank",
+      "icons": "/html/static/img/icons_app/bank.png",
+      "routeName": "bank",
+      "inHomePage": false
+    },
+    {
+      "name": "Bourse",
+      "fr_FR__name": "Bourse",
+      "en_US__name": "Stock Market",
+      "icons": "/html/static/img/icons_app/bourse.png",
+      "routeName": "bourse",
+      "enabled": false
+    },
+    {
+      "name": "Photo",
+      "fr_FR__name": "Aparat",
+      "en_US__name": "Camera",
+      "icons": "/html/static/img/icons_app/photo.png",
+      "routeName": "photo"
+    },
+    {
+      "name": "Dark Web",
+      "icons": "/html/static/img/icons_app/tchat.png",
+      "routeName": "tchat"
+    }
+  ],
+  "language": {
+    "fr_FR": {
+      "NAME": "Polski",
+
+      "PHONE_WARNING_MESSAGE": "Pamięć pełna",
+      "PHONE_WARNING_MESSAGE_MESS": "wiadomości",
+
+      "CONFIRM": "Akceptuj",
+      "CANCEL": "Anuluj",
+
+      "APP_CONFIG_TITLE": "Ustawienia",
+      "APP_CONFIG_MY_MUNBER": "Mój numer",
+      "APP_CONFIG_WALLPAPER": "Tapeta",
+      "APP_CONFIG_CASE": "Obudowa",
+      "APP_CONFIG_ZOOM": "Zoom",
+      "APP_CONFIG_VOLUME": "Głośność",
+      "APP_CONFIG_LANGUAGE": "Język",
+      "APP_CONFIG_RESET": "Reset telefonu",
+      "APP_CONFIG_RESET_CONFIRM": "USUŃ WSZYSTKO",
+      "APP_PHONE_CALL": "Zadzwoń",
+      "APP_PHONE_DELETE": "Usuń",
+      "APP_PHONE_DELETE_ALL": "Usuń wszystko",
+
+      "APP_PHONE_TITLE": "Telefon",
+      "APP_PHONE_MENU_FAVORITES": "Służby",
+      "APP_PHONE_MENU_RECENTS": "Ostatnie",
+      "APP_PHONE_MENU_CONTACTS": "Kontakty",
+      "APP_PHONE_ENTER_NUMBER": "Wprowadź numer",
+
+      "APP_BANK_TITLE": "Bank",
+
+      "APP_BOURSE_TITLE": "Giełda",
+
+      "APP_CONTACT_TITLE": "Kontakty",
+      "APP_CONTACT_NEW": "Nowy kontakt",
+      "APP_CONTACT_EDIT": "Modyfikuj kontakt",
+      "APP_CONTACT_SAVE": "Zapisz",
+      "APP_CONTACT_CANCEL": "Anuluj",
+      "APP_CONTACT_DELETE": "Usuń",
+      "APP_CONTACT_LABEL_NAME": "Nazwa kontaktu",
+      "APP_CONTACT_LABEL_NUMBER": "Numer",
+
+      "APP_MESSAGE_TITLE": "Wiadomości",
+      "APP_MESSAGE_NEW_MESSAGE": "Nowa wiadomość",
+      "APP_MESSAGE_ERASE_CONVERSATION": "Usuń tą konwersację",
+      "APP_MESSAGE_ERASE_ALL_CONVERSATIONS": "Usuń wszystkie konwersację",
+      "APP_MESSAGE_SEND_GPS": "Wyślij swoje położenie",
+      "APP_MESSAGE_SET_GPS": "Ustaw GPS",
+      "APP_MESSAGE_ZOOM_IMG": "Zoom",
+      "APP_MESSAGE_DELETE": "Usuń",
+      "APP_MESSAGE_SMS": "SMS",
+      "APP_MESSAGE_CONTACT_TITLE": "Kontakty",
+      "APP_MESSAGE_CONTRACT_ENTER_NUMBER": "Wpisz numer",
+      "APP_MESSAGE_PLACEHOLDER_ENTER_MESSAGE": "Napisz wiadomość",
+      
+      "APP_DARKTCHAT_TITLE": "Dark Web",
+      "APP_DARKTCHAT_NEW_CHANNEL": "Stwórz kanał",
+      "APP_DARKTCHAT_DELETE_CHANNEL": "Usuń kanał",
+      "APP_DARKTCHAT_CANCEL": "Anuluj",
+      "APP_DARKTCHAT_PLACEHOLDER_ENTER_MESSAGE": "Napisz wiadomość",
+
+      "TIMEAGO": [
+		"Teraz",
+		["%s sek. temu", "%s sek. temu"],
+        ["%s min. temu", "%s min. temu"],
+        ["%s godz. temu", "%s godz. temu"],
+        ["%s dnień temu", "%s dni temu"],
+        ["%s tydzień temu", "%s tyg. temu"],
+        ["%s miesiąc temu", "%s miesiące temu"],
+        ["%s rok temu", "%s lata temu"]
+      ]
+
+    }
+  }
+}

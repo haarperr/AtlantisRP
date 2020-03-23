@@ -1,0 +1,15 @@
+Locales['pl'] = {
+	['ooc_help'] = 'napisz wiadomość out of character',
+	['ooc_prefix'] = 'OOC | %s',
+	['twt_help'] = 'wyślij tweet',
+	['twt_prefix'] = '^0[^4Twitter^0] (^5@%s^0)',
+	['me_help'] = 'akcja personalna',
+	['me_prefix'] = 'me | %s',
+	['do_help'] = 'informacja rP',
+	['do_prefix'] = 'do | %s',
+	['news_help'] = 'ogłoś news (nie nadużywaj)',
+	['news_prefix'] = 'news | %s',
+	['ooc_argument_name'] = 'wiadomość',
+	['ooc_argument_help'] = 'wiadomość',
+	['ooc_unknown_command'] = '^3%s^0 to nie jest prawidłowa komenda!',
+}

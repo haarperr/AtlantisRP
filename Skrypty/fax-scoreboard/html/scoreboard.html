@@ -1,0 +1,159 @@
+<html>
+	<head>
+		<script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+		<script src="listener.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+        <style>
+					@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+			::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1269ca;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+::-webkit-scrollbar-track {
+  background: #1b1b1b;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+        .label-success {
+		    background-color: #5cb85c;
+		}
+		.label-default {
+		    background-color: #777;
+		}
+		.label-primary {
+		    background-color: #337ab7;
+		}
+		.label-info {
+   			background-color: #5bc0de;
+		}
+		.label-warning {
+		    background-color: #f0ad4e;
+		}
+		.label-danger {
+		    background-color: #d9534f;
+		}
+		.label-city {
+		    background-color: #333;
+		}
+		.label {
+		    display: inline;
+		    padding: .2em .6em .3em;
+		    font-size: 75%;
+		    font-weight: 700;
+		    line-height: 2;
+		    color: #fff;
+		    text-align: center;
+		    white-space: nowrap;
+		    vertical-align: baseline;
+		    border-radius: .25em;
+		    margin-bottom: 5px;
+		}
+        	body {
+		
+		font-family: 'Open Sans';
+		font-size: 12px;
+	}
+.main {
+	color: #fff;
+	right: 0px;
+    background: rgba(0, 0, 0, 0.7);
+    width: 22%;
+    position: absolute;
+    margin-top: 0px;
+    top: 0px;
+    height: 100%;
+    border-width: 5px;
+  border-style: solid;
+  border-image-slice: 1 ;
+  border-image-source:-webkit-linear-gradient(top,  rgba(0,242,96,0.7) 0%,rgba(18,105,202,0.7) 100%); 
+  border-bottom: 0px;
+  border-right: 0px;
+  border-top: 0px;
+}
+
+.row {
+
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px;
+    font-size: 12px;
+     border-width: 1px;
+  border-style: solid;
+  border-image-slice: 1 ;
+  border-image-source:-webkit-linear-gradient(left,  rgba(0,242,96,0.2) 0%,rgba(18,105,202,0.2) 100%); 
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+}
+.rowme {
+
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px;
+    font-size: 12px;
+     border-width: 1px;
+  border-style: solid;
+  border-image-slice: 1 ;
+  border-image-source:-webkit-linear-gradient(left,  rgba(0,242,96,1) 0%,rgba(18,105,202,1) 100%); 
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+}
+</style>
+	</head>
+	<body>
+		<div style="display: none ;" id="wrap" class="main">
+			<div style="text-align: right;">
+		<font style="font-size: 35px;">43</font><font style="font-size: 24px;">/64 </font>
+		<table style="    width:  100%; border-collapse: separate;
+  border-spacing: 5px;">
+
+  			<tr>
+				<td class="row" >LSPD: 0 </td>
+				<td class="row" >EMS: 0 </td>
+				<td class="row" >Mech: 0 </td>
+				<td class="row" >Urząd: 0 </td>
+				<td class="row" >Taxi: 0 </td>
+				<td class="row" >Strasz: 0 </td>
+			
+			</tr>
+		</table>
+	</div>
+	<div id="maintable" style="height: 75%; overflow-y: scroll;">
+		
+		<table id="ptbl" style="    width:  100%; border-collapse: separate;
+  border-spacing: 5px;">
+
+  			
+			
+			
+		</table> 
+	</div>
+		</div>
+	</body>
+</html>

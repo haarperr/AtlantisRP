@@ -1,0 +1,111 @@
+--[[------------------------------------------------------------------------
+
+	Radar/ALPR 
+	Created by Brock =]
+	Uses Numpad5 to turn on
+    Uses Numpad8 to freeze	
+
+------------------------------------------------------------------------]]--
+local enteredPolice = false
+local radar =
+{
+	shown = false,
+	freeze = false,
+	info = "~y~Inicjalizacja Radaru ... ~w~3 2 1 ... ~g~Załadowany! ",
+	info2 = "~y~Inicjalizacja Radaru ... ~w~3 2 1 ... ~g~Załadowany! ",
+	minSpeed = 5.0,
+	maxSpeed = 75.0,
+}
+--local distanceToCheckFront = 50
+
+function DrawAdvancedText(x,y ,w,h,sc, text, r,g,b,a,font,jus)
+    SetTextFont(font)
+    SetTextProportional(1)
+    SetTextScale(sc, sc)
+	N_0x4e096588b13ffeca(jus)
+    SetTextColour(r, g, b, a)
+    SetTextDropShadow(0, 0, 0, 0,255)
+    SetTextEdge(1, 0, 0, 0, 255)
+    SetTextDropShadow()
+    SetTextOutline()
+    SetTextEntry("STRING")
+    AddTextComponentString(text)
+	DrawText(x - 0.1+w, y - 0.02+h)
+end
+
+Citizen.CreateThread( function()
+	
+	while true do
+		Citizen.Wait(0)
+		if IsPedInAnyPoliceVehicle(GetPlayerPed(-1)) then
+			if IsControlJustPressed(1, 314) then 
+				if radar.shown then 
+					radar.shown = false 
+					radar.info = string.format("~y~Inicjalizacja Radaru ... ~w~3 2 1 ... ~g~Załadowany! ")
+					radar.info2 = string.format("~y~Inicjalizacja Radaru ... ~w~3 2 1 ... ~g~Załadowany! ")
+				else 
+					radar.shown = true 
+				end		
+	                Citizen.Wait(75)
+	        end
+			
+		end
+		if IsPedInAnyPoliceVehicle(GetPlayerPed(-1)) then
+			if IsControlJustPressed(1, 127) then 
+				if radar.freeze then radar.freeze = false else radar.freeze = true end
+			end
+	
+		end
+		if radar.shown  then
+			if radar.freeze == false then
+					local veh = GetVehiclePedIsIn(GetPlayerPed(-1), false)
+					local coordA = GetOffsetFromEntityInWorldCoords(veh, 0.0, 1.0, 1.0)
+					local coordB = GetOffsetFromEntityInWorldCoords(veh, 0.0, 105.0, 0.0)
+					local frontcar = StartShapeTestCapsule(coordA, coordB, 3.0, 10, veh, 7)
+					local a, b, c, d, e = GetShapeTestResult(frontcar)
+					
+					if IsEntityAVehicle(e) then
+						
+						local fmodel = GetDisplayNameFromVehicleModel(GetEntityModel(e))
+						local fvspeed = GetEntitySpeed(e)*2.236936*1.6093
+						local fplate = GetVehicleNumberPlateText(e)
+						radar.info = string.format("~w~Model: ~g~%s  ~w~Tablica: ~g~%s  ~w~Prędkość: ~y~%s km/h", fmodel, fplate, math.ceil(fvspeed))
+					end
+					
+					local bcoordB = GetOffsetFromEntityInWorldCoords(veh, 0.0, -105.0, 0.0)
+					local rearcar = StartShapeTestCapsule(coordA, bcoordB, 3.0, 10, veh, 7)
+					local f, g, h, i, j = GetShapeTestResult(rearcar)
+					
+					if IsEntityAVehicle(j) then
+					
+						local bmodel = GetDisplayNameFromVehicleModel(GetEntityModel(j))
+						local bvspeed = GetEntitySpeed(j)*2.236936*1.6093
+						local bplate = GetVehicleNumberPlateText(j)
+						radar.info2 = string.format("~w~Model: ~g~%s  ~w~Tablica: ~g~%s  ~w~Prędkość: ~y~%s km/h", bmodel, bplate, math.ceil(bvspeed))
+					
+					
+					end
+					
+			end
+			
+--			DrawRect(0.0855, 0.83, 0.142, 0.05, 0, 0, 0, 150)
+			DrawAdvancedText(0.253, 0.952, 0.005, 0.0028, 0.40, "[ P ] ", 0, 191, 255, 255, 6, 1)
+			DrawAdvancedText(0.2534, 0.976, 0.005, 0.0028, 0.40, "[ T ] ", 0, 191, 255, 255, 6, 1)
+			DrawAdvancedText(0.271, 0.952, 0.005, 0.0028, 0.40, radar.info, 255, 255, 255, 255, 6, 1)
+			DrawAdvancedText(0.271, 0.976, 0.005, 0.0028, 0.40, radar.info2, 255, 255, 255, 255, 6, 1)
+
+			
+		end
+		
+		if(not IsPedInAnyVehicle(GetPlayerPed(-1))) then
+			radar.shown = false
+			radar.info = string.format("~y~Inicjalizacja ALPR...~w~321...~y~Załadowany! ")
+			radar.info2 = string.format("~y~Inicjalizacja ALPR...~w~321...~y~Załadowany! ")
+			Citizen.Wait(5000)
+		end
+					
+	end
+	
+	
+end)
+
