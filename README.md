@@ -1,0 +1,2 @@
+# AtlantisRP
+częściowy zrzut skryptów
